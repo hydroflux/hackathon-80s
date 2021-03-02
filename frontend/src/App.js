@@ -7,14 +7,6 @@ import Footer from './containers/Footer';
 
 class App extends Component {
 
-  
-  // artist = "cher"
-
-  // Artist Search
-
-  // Album Search
-  // http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${this.apiKey}&artist=${this.artist}&album=${this.album}&format=json
-
   state = {
     apiKey: "c3238609982efde4e01b99b0caeeb18a",
     albums: [],
@@ -29,7 +21,6 @@ class App extends Component {
   }
 
   toggleFavorites = () => {
-    console.log(this.state.favorites)
     this.setState({ showFavorites: !this.state.showFavorites })
   }
 
@@ -59,8 +50,6 @@ class App extends Component {
 
     this.setState({ favorites: newFavorites })
 
-    console.log(favorite.id)
-
     fetch(`http://localhost:3000/albums/${favorite.id}`, {
       method: "DELETE"
     })
@@ -70,14 +59,17 @@ class App extends Component {
     event.preventDefault()
 
     const artist = event.target.artist.value
-  
-    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist}&api_key=${this.state.apiKey}&format=json`)
+
+    if (artist){
+      fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artist}&api_key=${this.state.apiKey}&format=json`)
         .then( response => response.json() )
         .then( topAlbums => {
           this.setState({ albums: topAlbums.topalbums.album})
         })
+        .catch( console.log )
     
-    this.setState({name: ''})
+      this.setState({name: ''})
+    }
   }
 
   render() {

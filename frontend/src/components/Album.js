@@ -11,10 +11,18 @@ export default function Album({ album, clickAction}) {
     const backend = () => {
         return (
             <>
-                <h2 className="vectro">{album.album_name}</h2>
-                <img onClick={handleClick} src={album.cover_image} alt={album.album_name} />
-                <h3 className="vectro">{album.artist_name}</h3>
-                {/* <h4>{release_date}</h4> */}
+                <h2
+                    className="vectro">{album.album_name}
+                </h2>
+                <img
+                    onClick={handleClick}
+                    src={album.cover_image}
+                    alt={album.album_name}
+                />
+                <h3
+                    className="vectro">
+                    {album.artist_name}
+                </h3>
             </>
         )
     }
@@ -22,9 +30,21 @@ export default function Album({ album, clickAction}) {
     const lastFM = () => {
         return (
             <>
-                <a href={album.url}><h2 className="vectro">{album.name}</h2></a>
-                <img onClick={handleClick} src={album.image[3]["#text"]} alt={album.name} />
-                <h3 className="vectro">{album.artist.name}</h3>
+                <a href={album.url}>
+                    <h2
+                        className="vectro">
+                        {album.name}
+                    </h2>
+                </a>
+                <img 
+                    onClick={handleClick}
+                    src={album.image[3]["#text"]}
+                    alt={album.name}    
+                />
+                <h3 
+                    className="vectro">
+                    {album.artist.name}
+                </h3>
             </>
         )
     }
