@@ -7,6 +7,8 @@ export default function AlbumContainer({ albums }) {
     const showAlbums = () => {
         return albums.map( album => {
 
+            console.log(album)
+
             var key
             album.id
             ? key = album.id

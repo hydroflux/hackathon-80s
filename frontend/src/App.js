@@ -38,7 +38,7 @@ class App extends Component {
         .then( response => response.json() )
         .then( topAlbums => {
           this.setState({ albums: topAlbums.topalbums.album})
-          console.log(topAlbums.topalbums)
+          // console.log(topAlbums.topalbums)
         })
     
     this.setState({name: ''})
