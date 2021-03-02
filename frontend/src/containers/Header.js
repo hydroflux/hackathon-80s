@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react';
 
 import '../App.css';
 
-export default function Header() {
-    return (
-        <header>
-            
-        </header>
-    )
+class Header extends Component {
+
+    render() {
+        return (
+            <header>
+                <div class="future-cop">
+                    <h3 class="future">Rad</h3>
+                    <h1 class="cop">RECORDS</h1>
+                </div>
+            </header>
+        );
+    }
 }
+
+export default Header;

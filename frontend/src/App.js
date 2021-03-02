@@ -17,18 +17,55 @@ class App extends Component {
 
   state = {
     apiKey: "c3238609982efde4e01b99b0caeeb18a",
-    albums: []
+    albums: [],
+    favorites: [],
+    showFavorites: false
   }
-
-  backendURL = `http://localhost:3000/albums`
 
   componentDidMount(){
-    fetch(this.backendURL)
+    fetch(`http://localhost:3000/albums`)
       .then( response => response.json() )
-      .then( albums => this.setState({ albums }) )
+      .then( favorites => this.setState({ favorites }) )
   }
 
-  
+  toggleFavorites = () => {
+    console.log(this.state.favorites)
+    this.setState({ showFavorites: !this.state.showFavorites })
+  }
+
+  addToFavorites = favorite => {
+    const favoriteAlbum = this.state.favorites.find( fav => fav === favorite )
+
+    if (!favoriteAlbum){
+      this.setState({ favorites: [...this.state.favorites, favorite]}) 
+    }
+
+    fetch("http://localhost:3000/albums", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        album_name: favorite.name,
+        artist_name: favorite.artist.name,
+        cover_image: favorite.image[3]["#text"]
+      })
+    })
+  }
+
+  removeFromFavorites = favorite => {
+    const newFavorites = this.state.favorites.filter( fav => fav !== favorite )
+
+    this.setState({ favorites: newFavorites })
+
+    console.log(favorite.id)
+
+    fetch(`http://localhost:3000/albums/${favorite.id}`, {
+      method: "DELETE"
+    })
+  }
+
   searchArtist = event => {
     event.preventDefault()
 
@@ -38,7 +75,6 @@ class App extends Component {
         .then( response => response.json() )
         .then( topAlbums => {
           this.setState({ albums: topAlbums.topalbums.album})
-          // console.log(topAlbums.topalbums)
         })
     
     this.setState({name: ''})
@@ -49,8 +85,13 @@ class App extends Component {
       <div>
         <Header />
         <Main
-          albums={this.state.albums}
           searchArtist={this.searchArtist}
+          toggle={this.toggleFavorites}
+          albums={this.state.albums}
+          favorites={this.state.favorites}
+          showFavorites={this.state.showFavorites}
+          add={this.addToFavorites}
+          remove={this.removeFromFavorites}
         />
         <Footer />
       </div>
