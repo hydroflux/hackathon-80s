@@ -1,11 +1,23 @@
 import React from 'react'
 import Album from '../components/Album'
+import '../App.css';
 
 export default function AlbumContainer({ albums }) {
 
     const showAlbums = () => {
         return albums.map( album => {
-            return <Album key={album.id} {...album}/>
+
+            var key
+            album.id
+            ? key = album.id
+            : key = album.name
+
+            return (
+                <Album 
+                    key={key}
+                    {...album}
+                />
+            )
         })
     }
 

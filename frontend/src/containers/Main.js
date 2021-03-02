@@ -1,10 +1,13 @@
-import React from 'react'
 import AlbumContainer from './AlbumContainer'
 
-export default function Main({ albums }) {
+import '../App.css';
+import AddAlbum from '../components/AddAlbum';
+
+export default function Main({ albums, api, searchArtist }) {
     return (
-        <div>
+        <main>
+            <AddAlbum searchArtist={searchArtist}/>
             <AlbumContainer albums={albums}/>
-        </div>
+        </main>
     )
 }
