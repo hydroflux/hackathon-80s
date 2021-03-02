@@ -2,6 +2,9 @@ import './App.css';
 
 import React, { Component } from 'react';
 import AlbumContainer from './containers/AlbumContainer';
+import Header from './containers/Header';
+import Main from './containers/Main';
+import Footer from './containers/Footer';
 
 class App extends Component {
 
@@ -29,7 +32,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AlbumContainer albums={this.state.albums}/>
+        <Header />
+        <Main albums={this.state.albums}/>
+        <Footer />
       </div>
     );
   }
